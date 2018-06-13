@@ -1,0 +1,65 @@
+import cv2 #opencv函數大多數都在cv2模塊內，並不是針對2.x.x版本的
+
+import numpy as np
+
+import os # 
+'''
+os.path模块主要用于文件的属性获取 查看官方文档：http://docs.python.org/library/os.path.html 
+https://www.cnblogs.com/wuxie1989/p/5623435.html
+'''
+#if __name__ == "__main__":
+
+#以下代碼僅爲學習語法 並無邏輯
+
+#數組？  擴展：http://www.runoob.com/python/python-lists.html
+a=[0,1,2]
+a[0]=0
+
+b=[[1,1],[1,1]]#定义了一个2*2的，且初始为0的二维数组？ from http://www.jb51.net/article/82329.htm
+c = [[0]*10]*10 #定义10*10初始为0的二维数组
+src = np.zeros((100, 100)) #使用np.zeros可以构造一个相应大小的全部由0组成的矩阵 100行100列 這用了numpy
+src[49][49] = 255  #第49行49列的元素爲255
+#排列array？
+
+#讀取一張靜態圖片
+img = cv2.imread('v1.jpg')
+'''
+使用函数cv2.imread()读取图片。第一个参数是文件路径；第二个参数指定以什么方式读取：
+cv2.IMREAD_COLOR：加载彩色图片，这个是默认参数。
+cv2.IMREAD_GRAYSCALE：以灰度模式加载图片。
+cv2.IMREAD_UNCHANGED：包括alpha。
+上面三个flag分别对应的值为1，0，-1。
+'''
+#讀取攝像頭？
+
+#
+gaussian1 = cv2.GaussianBlur(img,(5,5),0)
+#顯示圖片
+cv2.imshow('original',img)
+'''
+使用cv2.imshow()显示一个图像窗口，窗口大小根据图像自动调整。第一个参数是窗口名称，第二个参数是图片。你可以用不同的窗口名称创建多个窗口。
+如果想调整窗口大小，使用cv2.namedWindow()函数，它的默认参数cv2.WINDOW_AUTOSIZE：自动调整大小；参数cv2.WINDOW_NORMAL：允许调整窗口大小。
+'''
+cv2.imshow('(5,5)x1',gaussian1)
+
+plt.subplot(121),plt.imshow(img,cmap = 'gray')
+plt.title('Original Image'), plt.xticks([]), plt.yticks([])
+plt.subplot(122),plt.imshow(edges,cmap = 'gray')
+plt.title('Edge Image'), plt.xticks([]), plt.yticks([])
+plt.show()
+
+'''
+使用函数cv2.imwrite()保存图像到文件。
+第一个参数是文件名，第二个参数是你要保存的文件，下面把图片保存为png格式：
+cv2.imwrite('lena_gray.png',img)
+
+'''
+#waitKey()的參數是等待鍵盤觸發的時間，單位是毫秒，其返回值是-1（表示沒有鍵被按下）或ASCII碼（有ord()函數可查對應的ascii碼）
+
+cv2.waitKey(-1)
+
+#cv2.waitKey(0):等待键盘输入，输入任意键程序继续
+#cv2.destroyAllWindows():结束所有窗口，如果想结束指定窗口，传入窗口名。
+
+#函數？  http://www.runoob.com/python/python-functions.html
+
