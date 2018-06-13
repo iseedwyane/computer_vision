@@ -1,0 +1,79 @@
+cv.HoughCircles()
+circles	=cv.HoughCircles(image, method, dp, minDist[, circles[, param1[, param2[, minRadius[, maxRadius]]]]])
+image:输入 8-比特、单通道灰度图像
+method:Hough 变换方式，目前只支持CV_HOUGH_GRADIENT, which is basically 21HT, described in [Yuen03].
+dp:累加器图像的分辨率。这个参数允许创建一个比输入图像分辨率低的累加器。（这样做是因为有理由认为图像中存在的圆会自然降低到与图像宽高相同数量的范畴）。如果dp设置为1，则分辨率是相同的；如果设置为更大的值（比如2），累加器的分辨率受此影响会变小（此情况下为一半）。dp的值不能比1小。
+min_dist:该参数是让算法能明显区分的两个不同圆之间的最小距离
+param1:用于Canny的边缘阀值上限，下限被置为上限的一半
+param2:累加器的阀值
+min_radius:最小圆半徑
+Q:爲什麼要先進行canny提取邊緣?
+A:对于一副图像所有点都进行映射，随便假设一副100*100的图像（很小吧），就有10000个点，对每个点假设就映射36组(ρ,θ)参数（此时角度的步长是10度了，10度，已经非常大的一个概念了），那么总共需要映射360000次，在考虑每次映射计算的时间吧。可想而知，hough是多么耗时耗力。所以必须对其进行改进。首先就是对图像进行改进，100*100的图像，10000个点，是不是每个点都要计算？大可不必，我们只需要在开始把图像进行一个轮廓提取，一般使用canny算子就可以，生成黑白二值图像，白的是轮廓，那么在映射的时候，只需要把轮廓上的点进行参数空间变换，为什么提轮廓？想想无论检测图像中存在的直线呀圆呀，它们都是轮廓鲜明的。那么需要变换的点可能就从10000个点降到可能1000个点了，这也就是为什么看到许多hough变换提取形状时为什么要把图像提取轮廓，变成二值图像了。
+
+code from: https://blog.csdn.net/on2way/article/details/47028969
+
+
+#import matplotlib.pyplot as plt
+
+
+gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+'''
+色彩空间转化函数 cv2.cvtColor( )进行色彩空间的转换
+opencv中有多种色彩空间，包括 RGB、HSI、HSL、HSV、HSB、YCrCb、CIE XYZ、CIE Lab8种
+
+在opencv中，其默认的颜色制式排列是BGR而非RGB。所以对于24位颜色图像来说，前8-bit是蓝色，中间8-bit是绿色，最后8-bit是红色。常见的R,G,B通道的取值范围为： 
+. 0-255 :CV_8U类型图片 
+. 0-65535: CV_16U类型图片 
+. 0-1: CV_32F类型图片 
+'''
+circles1 = cv2.HoughCircles(gray,cv2.HOUGH_GRADIENT,1,100,param1=100,param2=30,minRadius=200,maxRadius=300)
+#在运行的项目中改了最小半径和最大半径后，效果就变好了
+circles = circles1[0,:,:]  #提取为二维
+circles = np.uint16(np.around(circles))#四舍五入 取整
+for i in circles[:]:     #
+    cv2.circle(img,(i[0],i[1]),i[2],(255,0,0),5) #画圆
+    cv2.circle(img,(i[0],i[1]),2,(255,0,255),10) #画圆心
+
+#for循环
+'''
+for letter in 'Python':     # 第一个实例   
+   print '当前字母 :', letter
+结果是：
+当前字母 : P
+当前字母 : y
+当前字母 : t
+当前字母 : h
+当前字母 : o
+当前字母 : n
+ # 把“Python” 一个字母一个字母地赋值给变量letter
+example2：
+fruits = ['banana', 'apple',  'mango']
+for fruit in fruits:        # 第二个实例
+   print '当前水果 :', fruit
+结果是：
+当前水果 : banana
+当前水果 : apple
+当前水果 : mango
+'''
+'''
+def draw_circle(img, radius, x, y):
+    """
+    Render circle
+    :param img    : Canvas 
+    :param radius : Radius of the circle
+    :param x      : (x, y) is the center of the circle graph on the canvas
+    :param y      : (x, y) is the center of the circle graph on the canvas
+    """
+    ############################################################
+    #                  Write your code here!                   #
+    ############################################################
+
+    cv2.circle(img, (x, y), radius, (20, 215, 20), radius)
+
+    ############################################################
+    #                           End                            #
+    ############################################################ 
+'''
+
+cv2.imshow('houghlines3.jpg',img)
+cv2.waitKey(-1)
