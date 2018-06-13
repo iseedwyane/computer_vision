@@ -1,0 +1,14 @@
+查询函数用法：
+$python
+>>>import cv2
+>>>help(cv2.函数名）
+
+用q退出
+
+
+或者
+打開opencv官網
+選擇在線文檔/online documentation  ：https://docs.opencv.org/
+後 選擇對應的版本 
+進入後 右上角搜索即可
+再按ctrl+f 可檢索
