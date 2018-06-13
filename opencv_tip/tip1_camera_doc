@@ -1,0 +1,6 @@
+just need one order
+
+cap = cv2.VideoCapture(1)
+while( cap.isOpened() ) :
+    ret,img = cap.read()
+    then use the img
