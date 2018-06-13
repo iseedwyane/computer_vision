@@ -1,1 +1,16 @@
 
+import cv2
+# import numpy as np
+
+img = cv2.imread('v1.jpg')
+
+#
+gaussian1 = cv2.GaussianBlur(img,(5,5),0)
+
+cv2.imshow('original',img)
+cv2.imshow('(5,5)x1',gaussian1)
+
+cv2.waitKey(-1)
+
+#cv2.waitKey(0)
+#cv2.destroyAllWindows()
