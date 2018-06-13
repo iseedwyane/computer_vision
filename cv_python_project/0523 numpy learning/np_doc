@@ -1,0 +1,50 @@
+MJ:
+https://www.yiibai.com/numpy/numpy_array_from_numerical_ranges.html
+net:
+https://blog.csdn.net/scorpion_zs/article/details/52982872
+
+numpy.zeros（np.zeros）使用方法--python学习笔记31
+https://blog.csdn.net/qq_26948675/article/details/54318917
+
+ndarray :n维数组
+py文件名字不能叫numpy.py
+
+x = np.arange(5)
+print x
+result(in terminal):
+[0  1  2  3  4]
+
+...
+numpy.ndarray.item
+
+np.random.randint产生一个范围内的数据
+owners = np.random.randint(15000, high=73001, size=398, dtype='l')
+官方文档中给出的用法是：numpy.random.randint(low,high=None,size=None,dtype)
+生成在半开半闭区间[low,high)上离散均匀分布的整数值;若high=None，则取值区间变为[0,low) 
+eg:
+x = np.random.randint(9, size=(3, 3))
+
+print x
+print x.item(3)
+print x.item(7)
+print x.item((0, 1))
+默认high=none
+取值区间[0，9），生成3*3的数组
+比如随机生成了：
+[[5 7 3]
+ [6 6 7]
+ [4 5 5]]
+print x.item(3)即从0位开始数，0;1;2;；3;4;5；；6;7;8； “3”对应的是6
+print x.item(7)对应是5
+print x.item((0, 1))即从第0行第0列开始，则0行1列是7
+
+
+Z = img.reshape((-1,3))
+numpy.reshape
+https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.reshape.html
+https://blog.csdn.net/qq_28618765/article/details/78083895
+
+# convert to np.float32
+Z = np.float32(Z)
+Numpy 中文用户指南 3.1 数据类型:
+https://segmentfault.com/a/1190000004681332
