@@ -1,0 +1,20 @@
+cannny邊緣檢測
+輸入輸出均爲單通道圖片（灰度圖）0-255
+上限閾值
+下限閾值
+cv2.Canny(img,200,300)
+
+
+hough霍夫變換
+尋找直線、圓和簡單圖形的方法
+opencv-python page50
+
+霍夫直線變換
+cv2.HoughLineP()
+or: cv.HoughLines()
+霍夫圓變換
+cv2.HoughCircles()
+
+随机抽样一致算法（random sample consensus,RANSAC）
+
+棋盤角點檢測:从一幅包含棋盘（可以是多个）自然图像中找到棋盘中每个角点的位置
