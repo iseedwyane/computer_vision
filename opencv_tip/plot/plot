@@ -1,0 +1,15 @@
+
+import cv2 
+import matplotlib.pyplot as plt  
+import pylab
+pic=cv2.imread('v3.png') 
+
+
+
+
+plt.subplot(121).imshow(pic, cmap='gray')
+plt.title('Input Image'), plt.xticks([]), plt.yticks([])
+
+pylab.show()  
+
+#plt.imshow(pic)
