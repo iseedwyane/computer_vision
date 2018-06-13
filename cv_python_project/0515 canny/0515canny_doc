@@ -18,3 +18,18 @@ cv2.HoughCircles()
 随机抽样一致算法（random sample consensus,RANSAC）
 
 棋盤角點檢測:从一幅包含棋盘（可以是多个）自然图像中找到棋盘中每个角点的位置
+
+summary
+input should be a gray picture (0-255)
+第一个参数是需要处理的原图像，该图像必须为单通道的灰度图
+可以先進行以下高斯模糊/效果更好：img = cv2.GaussianBlur(img,(3,3),0) 
+
+第二个参数是阈值1；
+第三个参数是阈值2；
+可选参数中apertureSize就是Sobel算子的大小；其中apertureSize默认为3
+
+規律：當閾值越來越高時，提取到的邊緣越來越稀疏
+
+canny返回的是什麼圖像 三通道(RGB)就爲三維矩陣？那這裏灰度圖是單通道圖片，是二維矩陣
+canny函數返回的是二維矩陣
+熟悉變換
