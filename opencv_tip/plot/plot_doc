@@ -1,0 +1,25 @@
+solution:https://blog.csdn.net/u011333059/article/details/38079833
+代码如下：
+
+[python] view plain copy
+import matplotlib.pyplot as plt  
+input_image = root/to/your/image  
+plt.imshow(input_image)  
+
+运行后发现图片无法显示，
+解决方法是：
+
+首先import pylab
+
+在需要显示图片的代码下一行加上
+
+
+pylab.show()  
+
+这种方法可以显示图片，但是不关掉这个图片窗口，代码就不会继续运行下去，暂时还没有找到更合适的方法。
+希望有知道解决方法的可以告诉我，谢谢！
+
+问题来了，为什么显示的颜色与原图不同呢？
+后来网上搜索后才知道，对于opencv的像素是BGR顺序，然而matplotlib所遵循的是RGB顺序。
+opencv的一个像素为：[B,G,R] ,matplotlib的一个像素为：[R,G,B]。这就是为什么本来发红的区域变得有些发蓝了。
+from 博客 ：https://www.cnblogs.com/visionfeng/p/6094423.html
