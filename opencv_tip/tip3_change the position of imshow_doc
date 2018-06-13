@@ -1,0 +1,4 @@
+https://www.2cto.com/kf/201611/568821.html
+中的
+	cv2.imshow('draw_result',result)
+	cv2.moveWindow('draw_result',1000,500)
