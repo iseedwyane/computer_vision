@@ -1,0 +1,11 @@
+import cv2
+
+stitcher = cv2.createStitcher(False)
+foo = cv2.imread("v1.jpg")
+bar = cv2.imread("v2.jpg")
+result = stitcher.stitch((foo,bar))
+
+cv2.imwrite("v3.jpg", result[1])
+
+cv2.imshow("v3.jpg", result[1])
+cv2.waitKey(0)
