@@ -1,0 +1,78 @@
+import cv2
+import numpy as np
+
+cap = cv2.VideoCapture(1)
+while( cap.isOpened() ) :
+	ret,img = cap.read()
+
+	################################################################################
+
+
+	# load an original image
+	#img = cv2.imread(imgFile)
+	################################################################################
+
+	print 'YCbCr-RGB Skin Model'
+
+	rows,cols,channels = img.shape
+	################################################################################
+
+	# convert color space from rgb to ycbcr
+	imgYcc = cv2.cvtColor(img, cv2.COLOR_BGR2YCR_CB)
+
+	# convert color space from bgr to rgb                        
+	img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+	# prepare an empty image space
+	imgSkin = np.zeros(img.shape, np.uint8)
+	# copy original image
+	imgSkin = img.copy()    
+	################################################################################
+
+	for r in range(rows):
+	    for c in range(cols):
+		
+		# non-skin area if skin equals 0, skin area otherwise        
+		skin = 0        
+		########################################################################
+		
+		# get values from rgb color space
+		R = img.item(r,c,0)
+		G = img.item(r,c,1)
+		B = img.item(r,c,2)
+		
+		# get values from ycbcr color space   
+		Y = imgYcc.item(r,c,0)
+		Cr = imgYcc.item(r,c,1)
+		Cb = imgYcc.item(r,c,2)                                                                                                                                        
+		########################################################################
+		
+		# skin color detection
+		
+		if R > G and R > B:
+
+		        if (133 <= Cr and Cr <= 173) and (77 <= Cb and Cb <= 127):
+		            skin = 1
+		            # print 'Skin detected!'
+		
+		if 0 == skin:
+		    imgSkin.itemset((r,c,0),0)
+		    imgSkin.itemset((r,c,1),0)                
+		    imgSkin.itemset((r,c,2),0)
+		if 1 == skin:
+		    imgSkin.itemset((r,c,0),255)
+		    imgSkin.itemset((r,c,1),255)                
+		    imgSkin.itemset((r,c,2),255)
+
+	######################from cv2.findContours
+
+
+
+	#######################from try_526
+
+	cv2.imshow("RESULT",imgSkin)
+
+	k = cv2.waitKey(10)
+	if k == 27:
+		break
+
