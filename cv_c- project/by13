@@ -1,0 +1,15 @@
+use cmake
+step1:
+xx.cpp
+写cpp文件
+step2:
+Camkelist.txt
+你需要把配置信息写在该文件中，然后通过cmake去处理该文件
+按照模板
+
+step3:
+$mkdir build 
+$cd build 
+$cmake .. 
+$make 
+$./helloworld
