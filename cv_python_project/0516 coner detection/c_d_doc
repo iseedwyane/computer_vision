@@ -1,0 +1,34 @@
+Open 中的函数 cv2.cornerHarris() 可以用来进行角点检测。参数如下:
+　　• img - 数据类型为 float32 的输入图像。
+　　• blockSize - 角点检测中要考虑的领域大小。
+　　• ksize - Sobel 求导中使用的窗口大小
+　　• k - Harris 角点检测方程中的自由参数,取值参数为 [0,04,0.06].
+
+cv2.cornerHarris()函数的返回值其实就是R值构成的灰度图像　灰度图像坐标会与原图像对应　
+　Ｒ值就是角点分数　当Ｒ值很大的时候　就可以认为这个点是一个角点
+当 λ 1 和 λ 2 都很大，并且 λ 1 ～λ 2 中的时，R 也很大，（λ 1 和 λ 2 中的最小值都大于阈值）说明这个区域是角点。
+
+dst = cv2.dilate(dst,None)　这段代码是膨胀　提升后续图像角点标注的清晰准确度　　可有可无　　也可以注释掉
+
+img[dst>0.01*dst.max()]=[0,0,255]这段代码是什么意思吧　    
+dst>0.01*dst.max()这么多返回是满足条件的dst索引值　　根据索引值来设置这个点的颜色
+这里是设定一个阈值　当大于这个阈值分数的都可以判定为角点
+注意了这里Ｒ是一个很大的值　我们选取里面最大的Ｒ　然后　只要dst里面的值大于百分之一的Ｒ的最大值　　那么此时这个dst的Ｒ值也是很大的　可以判定他为角点
+也不一定要０．０１　　　可以根据图像自己选取不过如果太小的话　可能会多圈出几个不同的角点
+
+
+Q1:OpenCV Error: Assertion failed:
+opencv error assertion failed（scn == 3 scn == 4）in unknown function”，出現這種問題，基本上是由於cvtColor（）使用不當造成的，主要有兩種情況：
+第一種如2樓所述，圖像通道沒設置對; 
+第二種，如果程序運行到某幀幀為空的情況下，再執行cvtColor（frame，current_gray，CV_RGB2GRAY）也會報錯。
+
+A:在轉彩色到灰度的時候，要求frame是3通道或者4通道的，你看看你的frame是彩圖嗎？
+Q2:
+Traceback (most recent call last):
+  File "cornerdect.py", line 11, in <module>
+    dst = cv2.cornerHarris(gray,2,3,0.04)
+TypeError: src is not a numpy array, neither a scalar
+A:
+
+
+link:https://blog.csdn.net/firemicrocosm/article/details/48397193
