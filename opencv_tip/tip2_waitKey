@@ -1,0 +1,32 @@
+from
+https://stackoverflow.com/questions/14494101/using-other-keys-for-the-waitkey-function-of-opencv
+
+
+You can use ord() function in Python for that.
+
+For example, if you want to trigger 'a' key press, do as follows :
+
+if cv2.waitKey(33) == ord('a'):
+   print "pressed a"
+
+To find the key value for any key is to print the key value using a simple script as follows :
+
+import cv2
+img = cv2.imread('sof.jpg') # load a dummy image
+while(1):
+    cv2.imshow('img',img)
+    k = cv2.waitKey(33)
+    if k==27:    # Esc key to stop
+        break
+    elif k==-1:  # normally -1 returned,so don't print it
+        continue
+    else:
+        print k # else print its value
+
+With this code, I got following values :
+Upkey : 2490368
+DownKey : 2621440
+LeftKey : 2424832
+RightKey: 2555904
+Space : 32
+Delete : 3014656
